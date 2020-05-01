@@ -1,0 +1,4043 @@
+# source: http://beautiful-hasura-dev.herokuapp.com/v1/graphql
+# timestamp: Tue Apr 07 2020 17:57:43 GMT-0600 (Mountain Daylight Time)
+
+schema {
+  query: query_root
+  mutation: mutation_root
+  subscription: subscription_root
+}
+
+"""
+expression to compare columns of type Boolean. All fields are combined with logical 'AND'.
+"""
+input Boolean_comparison_exp {
+  _eq: Boolean
+  _gt: Boolean
+  _gte: Boolean
+  _in: [Boolean!]
+  _is_null: Boolean
+  _lt: Boolean
+  _lte: Boolean
+  _neq: Boolean
+  _nin: [Boolean!]
+}
+
+"""
+columns and relationships of "bot"
+"""
+type bot {
+  UUID: uuid!
+  controller: Int!
+  earnings: Int!
+  id: Int!
+
+  """An array relationship"""
+  interactions(
+    """distinct select on columns"""
+    distinct_on: [interaction_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [interaction_order_by!]
+
+    """filter the rows returned"""
+    where: interaction_bool_exp
+  ): [interaction!]!
+
+  """An aggregated array relationship"""
+  interactions_aggregate(
+    """distinct select on columns"""
+    distinct_on: [interaction_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [interaction_order_by!]
+
+    """filter the rows returned"""
+    where: interaction_bool_exp
+  ): interaction_aggregate!
+  name: String!
+  todays_earnings: Int!
+  type: smallint!
+
+  """An object relationship"""
+  user: users!
+}
+
+"""
+aggregated selection of "bot"
+"""
+type bot_aggregate {
+  aggregate: bot_aggregate_fields
+  nodes: [bot!]!
+}
+
+"""
+aggregate fields of "bot"
+"""
+type bot_aggregate_fields {
+  avg: bot_avg_fields
+  count(columns: [bot_select_column!], distinct: Boolean): Int
+  max: bot_max_fields
+  min: bot_min_fields
+  stddev: bot_stddev_fields
+  stddev_pop: bot_stddev_pop_fields
+  stddev_samp: bot_stddev_samp_fields
+  sum: bot_sum_fields
+  var_pop: bot_var_pop_fields
+  var_samp: bot_var_samp_fields
+  variance: bot_variance_fields
+}
+
+"""
+order by aggregate values of table "bot"
+"""
+input bot_aggregate_order_by {
+  avg: bot_avg_order_by
+  count: order_by
+  max: bot_max_order_by
+  min: bot_min_order_by
+  stddev: bot_stddev_order_by
+  stddev_pop: bot_stddev_pop_order_by
+  stddev_samp: bot_stddev_samp_order_by
+  sum: bot_sum_order_by
+  var_pop: bot_var_pop_order_by
+  var_samp: bot_var_samp_order_by
+  variance: bot_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "bot"
+"""
+input bot_arr_rel_insert_input {
+  data: [bot_insert_input!]!
+  on_conflict: bot_on_conflict
+}
+
+"""aggregate avg on columns"""
+type bot_avg_fields {
+  controller: Float
+  earnings: Float
+  id: Float
+  todays_earnings: Float
+  type: Float
+}
+
+"""
+order by avg() on columns of table "bot"
+"""
+input bot_avg_order_by {
+  controller: order_by
+  earnings: order_by
+  id: order_by
+  todays_earnings: order_by
+  type: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "bot". All fields are combined with a logical 'AND'.
+"""
+input bot_bool_exp {
+  UUID: uuid_comparison_exp
+  _and: [bot_bool_exp]
+  _not: bot_bool_exp
+  _or: [bot_bool_exp]
+  controller: Int_comparison_exp
+  earnings: Int_comparison_exp
+  id: Int_comparison_exp
+  interactions: interaction_bool_exp
+  name: String_comparison_exp
+  todays_earnings: Int_comparison_exp
+  type: smallint_comparison_exp
+  user: users_bool_exp
+}
+
+"""
+unique or primary key constraints on table "bot"
+"""
+enum bot_constraint {
+  """unique or primary key constraint"""
+  bot_UUID_key
+
+  """unique or primary key constraint"""
+  bot_id_key
+
+  """unique or primary key constraint"""
+  bot_pkey
+}
+
+"""
+input type for incrementing integer columne in table "bot"
+"""
+input bot_inc_input {
+  controller: Int
+  earnings: Int
+  id: Int
+  todays_earnings: Int
+  type: smallint
+}
+
+"""
+input type for inserting data into table "bot"
+"""
+input bot_insert_input {
+  UUID: uuid
+  controller: Int
+  earnings: Int
+  id: Int
+  interactions: interaction_arr_rel_insert_input
+  name: String
+  todays_earnings: Int
+  type: smallint
+  user: users_obj_rel_insert_input
+}
+
+"""aggregate max on columns"""
+type bot_max_fields {
+  controller: Int
+  earnings: Int
+  id: Int
+  name: String
+  todays_earnings: Int
+  type: smallint
+}
+
+"""
+order by max() on columns of table "bot"
+"""
+input bot_max_order_by {
+  controller: order_by
+  earnings: order_by
+  id: order_by
+  name: order_by
+  todays_earnings: order_by
+  type: order_by
+}
+
+"""aggregate min on columns"""
+type bot_min_fields {
+  controller: Int
+  earnings: Int
+  id: Int
+  name: String
+  todays_earnings: Int
+  type: smallint
+}
+
+"""
+order by min() on columns of table "bot"
+"""
+input bot_min_order_by {
+  controller: order_by
+  earnings: order_by
+  id: order_by
+  name: order_by
+  todays_earnings: order_by
+  type: order_by
+}
+
+"""
+response of any mutation on the table "bot"
+"""
+type bot_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [bot!]!
+}
+
+"""
+input type for inserting object relation for remote table "bot"
+"""
+input bot_obj_rel_insert_input {
+  data: bot_insert_input!
+  on_conflict: bot_on_conflict
+}
+
+"""
+on conflict condition type for table "bot"
+"""
+input bot_on_conflict {
+  constraint: bot_constraint!
+  update_columns: [bot_update_column!]!
+  where: bot_bool_exp
+}
+
+"""
+ordering options when selecting data from "bot"
+"""
+input bot_order_by {
+  UUID: order_by
+  controller: order_by
+  earnings: order_by
+  id: order_by
+  interactions_aggregate: interaction_aggregate_order_by
+  name: order_by
+  todays_earnings: order_by
+  type: order_by
+  user: users_order_by
+}
+
+"""
+select columns of table "bot"
+"""
+enum bot_select_column {
+  """column name"""
+  UUID
+
+  """column name"""
+  controller
+
+  """column name"""
+  earnings
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  todays_earnings
+
+  """column name"""
+  type
+}
+
+"""
+input type for updating data in table "bot"
+"""
+input bot_set_input {
+  UUID: uuid
+  controller: Int
+  earnings: Int
+  id: Int
+  name: String
+  todays_earnings: Int
+  type: smallint
+}
+
+"""aggregate stddev on columns"""
+type bot_stddev_fields {
+  controller: Float
+  earnings: Float
+  id: Float
+  todays_earnings: Float
+  type: Float
+}
+
+"""
+order by stddev() on columns of table "bot"
+"""
+input bot_stddev_order_by {
+  controller: order_by
+  earnings: order_by
+  id: order_by
+  todays_earnings: order_by
+  type: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type bot_stddev_pop_fields {
+  controller: Float
+  earnings: Float
+  id: Float
+  todays_earnings: Float
+  type: Float
+}
+
+"""
+order by stddev_pop() on columns of table "bot"
+"""
+input bot_stddev_pop_order_by {
+  controller: order_by
+  earnings: order_by
+  id: order_by
+  todays_earnings: order_by
+  type: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type bot_stddev_samp_fields {
+  controller: Float
+  earnings: Float
+  id: Float
+  todays_earnings: Float
+  type: Float
+}
+
+"""
+order by stddev_samp() on columns of table "bot"
+"""
+input bot_stddev_samp_order_by {
+  controller: order_by
+  earnings: order_by
+  id: order_by
+  todays_earnings: order_by
+  type: order_by
+}
+
+"""aggregate sum on columns"""
+type bot_sum_fields {
+  controller: Int
+  earnings: Int
+  id: Int
+  todays_earnings: Int
+  type: smallint
+}
+
+"""
+order by sum() on columns of table "bot"
+"""
+input bot_sum_order_by {
+  controller: order_by
+  earnings: order_by
+  id: order_by
+  todays_earnings: order_by
+  type: order_by
+}
+
+"""
+update columns of table "bot"
+"""
+enum bot_update_column {
+  """column name"""
+  UUID
+
+  """column name"""
+  controller
+
+  """column name"""
+  earnings
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  todays_earnings
+
+  """column name"""
+  type
+}
+
+"""aggregate var_pop on columns"""
+type bot_var_pop_fields {
+  controller: Float
+  earnings: Float
+  id: Float
+  todays_earnings: Float
+  type: Float
+}
+
+"""
+order by var_pop() on columns of table "bot"
+"""
+input bot_var_pop_order_by {
+  controller: order_by
+  earnings: order_by
+  id: order_by
+  todays_earnings: order_by
+  type: order_by
+}
+
+"""aggregate var_samp on columns"""
+type bot_var_samp_fields {
+  controller: Float
+  earnings: Float
+  id: Float
+  todays_earnings: Float
+  type: Float
+}
+
+"""
+order by var_samp() on columns of table "bot"
+"""
+input bot_var_samp_order_by {
+  controller: order_by
+  earnings: order_by
+  id: order_by
+  todays_earnings: order_by
+  type: order_by
+}
+
+"""aggregate variance on columns"""
+type bot_variance_fields {
+  controller: Float
+  earnings: Float
+  id: Float
+  todays_earnings: Float
+  type: Float
+}
+
+"""
+order by variance() on columns of table "bot"
+"""
+input bot_variance_order_by {
+  controller: order_by
+  earnings: order_by
+  id: order_by
+  todays_earnings: order_by
+  type: order_by
+}
+
+"""
+columns and relationships of "chat"
+"""
+type chat {
+  ID: Int!
+  handled: date!
+  interaction: Int
+
+  """An object relationship"""
+  interactionByInteraction: interaction
+  log: Int!
+  review: Int!
+}
+
+"""
+aggregated selection of "chat"
+"""
+type chat_aggregate {
+  aggregate: chat_aggregate_fields
+  nodes: [chat!]!
+}
+
+"""
+aggregate fields of "chat"
+"""
+type chat_aggregate_fields {
+  avg: chat_avg_fields
+  count(columns: [chat_select_column!], distinct: Boolean): Int
+  max: chat_max_fields
+  min: chat_min_fields
+  stddev: chat_stddev_fields
+  stddev_pop: chat_stddev_pop_fields
+  stddev_samp: chat_stddev_samp_fields
+  sum: chat_sum_fields
+  var_pop: chat_var_pop_fields
+  var_samp: chat_var_samp_fields
+  variance: chat_variance_fields
+}
+
+"""
+order by aggregate values of table "chat"
+"""
+input chat_aggregate_order_by {
+  avg: chat_avg_order_by
+  count: order_by
+  max: chat_max_order_by
+  min: chat_min_order_by
+  stddev: chat_stddev_order_by
+  stddev_pop: chat_stddev_pop_order_by
+  stddev_samp: chat_stddev_samp_order_by
+  sum: chat_sum_order_by
+  var_pop: chat_var_pop_order_by
+  var_samp: chat_var_samp_order_by
+  variance: chat_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "chat"
+"""
+input chat_arr_rel_insert_input {
+  data: [chat_insert_input!]!
+  on_conflict: chat_on_conflict
+}
+
+"""aggregate avg on columns"""
+type chat_avg_fields {
+  ID: Float
+  interaction: Float
+  log: Float
+  review: Float
+}
+
+"""
+order by avg() on columns of table "chat"
+"""
+input chat_avg_order_by {
+  ID: order_by
+  interaction: order_by
+  log: order_by
+  review: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "chat". All fields are combined with a logical 'AND'.
+"""
+input chat_bool_exp {
+  ID: Int_comparison_exp
+  _and: [chat_bool_exp]
+  _not: chat_bool_exp
+  _or: [chat_bool_exp]
+  handled: date_comparison_exp
+  interaction: Int_comparison_exp
+  interactionByInteraction: interaction_bool_exp
+  log: Int_comparison_exp
+  review: Int_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "chat"
+"""
+enum chat_constraint {
+  """unique or primary key constraint"""
+  chats_pkey
+}
+
+"""
+input type for incrementing integer columne in table "chat"
+"""
+input chat_inc_input {
+  ID: Int
+  interaction: Int
+  log: Int
+  review: Int
+}
+
+"""
+input type for inserting data into table "chat"
+"""
+input chat_insert_input {
+  ID: Int
+  handled: date
+  interaction: Int
+  interactionByInteraction: interaction_obj_rel_insert_input
+  log: Int
+  review: Int
+}
+
+"""aggregate max on columns"""
+type chat_max_fields {
+  ID: Int
+  handled: date
+  interaction: Int
+  log: Int
+  review: Int
+}
+
+"""
+order by max() on columns of table "chat"
+"""
+input chat_max_order_by {
+  ID: order_by
+  handled: order_by
+  interaction: order_by
+  log: order_by
+  review: order_by
+}
+
+"""aggregate min on columns"""
+type chat_min_fields {
+  ID: Int
+  handled: date
+  interaction: Int
+  log: Int
+  review: Int
+}
+
+"""
+order by min() on columns of table "chat"
+"""
+input chat_min_order_by {
+  ID: order_by
+  handled: order_by
+  interaction: order_by
+  log: order_by
+  review: order_by
+}
+
+"""
+response of any mutation on the table "chat"
+"""
+type chat_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [chat!]!
+}
+
+"""
+input type for inserting object relation for remote table "chat"
+"""
+input chat_obj_rel_insert_input {
+  data: chat_insert_input!
+  on_conflict: chat_on_conflict
+}
+
+"""
+on conflict condition type for table "chat"
+"""
+input chat_on_conflict {
+  constraint: chat_constraint!
+  update_columns: [chat_update_column!]!
+  where: chat_bool_exp
+}
+
+"""
+ordering options when selecting data from "chat"
+"""
+input chat_order_by {
+  ID: order_by
+  handled: order_by
+  interaction: order_by
+  interactionByInteraction: interaction_order_by
+  log: order_by
+  review: order_by
+}
+
+"""
+select columns of table "chat"
+"""
+enum chat_select_column {
+  """column name"""
+  ID
+
+  """column name"""
+  handled
+
+  """column name"""
+  interaction
+
+  """column name"""
+  log
+
+  """column name"""
+  review
+}
+
+"""
+input type for updating data in table "chat"
+"""
+input chat_set_input {
+  ID: Int
+  handled: date
+  interaction: Int
+  log: Int
+  review: Int
+}
+
+"""aggregate stddev on columns"""
+type chat_stddev_fields {
+  ID: Float
+  interaction: Float
+  log: Float
+  review: Float
+}
+
+"""
+order by stddev() on columns of table "chat"
+"""
+input chat_stddev_order_by {
+  ID: order_by
+  interaction: order_by
+  log: order_by
+  review: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type chat_stddev_pop_fields {
+  ID: Float
+  interaction: Float
+  log: Float
+  review: Float
+}
+
+"""
+order by stddev_pop() on columns of table "chat"
+"""
+input chat_stddev_pop_order_by {
+  ID: order_by
+  interaction: order_by
+  log: order_by
+  review: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type chat_stddev_samp_fields {
+  ID: Float
+  interaction: Float
+  log: Float
+  review: Float
+}
+
+"""
+order by stddev_samp() on columns of table "chat"
+"""
+input chat_stddev_samp_order_by {
+  ID: order_by
+  interaction: order_by
+  log: order_by
+  review: order_by
+}
+
+"""aggregate sum on columns"""
+type chat_sum_fields {
+  ID: Int
+  interaction: Int
+  log: Int
+  review: Int
+}
+
+"""
+order by sum() on columns of table "chat"
+"""
+input chat_sum_order_by {
+  ID: order_by
+  interaction: order_by
+  log: order_by
+  review: order_by
+}
+
+"""
+update columns of table "chat"
+"""
+enum chat_update_column {
+  """column name"""
+  ID
+
+  """column name"""
+  handled
+
+  """column name"""
+  interaction
+
+  """column name"""
+  log
+
+  """column name"""
+  review
+}
+
+"""aggregate var_pop on columns"""
+type chat_var_pop_fields {
+  ID: Float
+  interaction: Float
+  log: Float
+  review: Float
+}
+
+"""
+order by var_pop() on columns of table "chat"
+"""
+input chat_var_pop_order_by {
+  ID: order_by
+  interaction: order_by
+  log: order_by
+  review: order_by
+}
+
+"""aggregate var_samp on columns"""
+type chat_var_samp_fields {
+  ID: Float
+  interaction: Float
+  log: Float
+  review: Float
+}
+
+"""
+order by var_samp() on columns of table "chat"
+"""
+input chat_var_samp_order_by {
+  ID: order_by
+  interaction: order_by
+  log: order_by
+  review: order_by
+}
+
+"""aggregate variance on columns"""
+type chat_variance_fields {
+  ID: Float
+  interaction: Float
+  log: Float
+  review: Float
+}
+
+"""
+order by variance() on columns of table "chat"
+"""
+input chat_variance_order_by {
+  ID: order_by
+  interaction: order_by
+  log: order_by
+  review: order_by
+}
+
+scalar date
+
+"""
+expression to compare columns of type date. All fields are combined with logical 'AND'.
+"""
+input date_comparison_exp {
+  _eq: date
+  _gt: date
+  _gte: date
+  _in: [date!]
+  _is_null: Boolean
+  _lt: date
+  _lte: date
+  _neq: date
+  _nin: [date!]
+}
+
+"""
+expression to compare columns of type Int. All fields are combined with logical 'AND'.
+"""
+input Int_comparison_exp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  _is_null: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int!]
+}
+
+"""
+columns and relationships of "interaction"
+"""
+type interaction {
+  active: Boolean!
+  bot: uuid
+
+  """An object relationship"""
+  botByBot: bot
+
+  """An array relationship"""
+  chats(
+    """distinct select on columns"""
+    distinct_on: [chat_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [chat_order_by!]
+
+    """filter the rows returned"""
+    where: chat_bool_exp
+  ): [chat!]!
+
+  """An aggregated array relationship"""
+  chats_aggregate(
+    """distinct select on columns"""
+    distinct_on: [chat_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [chat_order_by!]
+
+    """filter the rows returned"""
+    where: chat_bool_exp
+  ): chat_aggregate!
+  controller: String!
+  created_at: date!
+  id: Int!
+  income: Int
+  successful: Boolean
+  type: String!
+  updated_at: date!
+}
+
+"""
+aggregated selection of "interaction"
+"""
+type interaction_aggregate {
+  aggregate: interaction_aggregate_fields
+  nodes: [interaction!]!
+}
+
+"""
+aggregate fields of "interaction"
+"""
+type interaction_aggregate_fields {
+  avg: interaction_avg_fields
+  count(columns: [interaction_select_column!], distinct: Boolean): Int
+  max: interaction_max_fields
+  min: interaction_min_fields
+  stddev: interaction_stddev_fields
+  stddev_pop: interaction_stddev_pop_fields
+  stddev_samp: interaction_stddev_samp_fields
+  sum: interaction_sum_fields
+  var_pop: interaction_var_pop_fields
+  var_samp: interaction_var_samp_fields
+  variance: interaction_variance_fields
+}
+
+"""
+order by aggregate values of table "interaction"
+"""
+input interaction_aggregate_order_by {
+  avg: interaction_avg_order_by
+  count: order_by
+  max: interaction_max_order_by
+  min: interaction_min_order_by
+  stddev: interaction_stddev_order_by
+  stddev_pop: interaction_stddev_pop_order_by
+  stddev_samp: interaction_stddev_samp_order_by
+  sum: interaction_sum_order_by
+  var_pop: interaction_var_pop_order_by
+  var_samp: interaction_var_samp_order_by
+  variance: interaction_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "interaction"
+"""
+input interaction_arr_rel_insert_input {
+  data: [interaction_insert_input!]!
+  on_conflict: interaction_on_conflict
+}
+
+"""aggregate avg on columns"""
+type interaction_avg_fields {
+  id: Float
+  income: Float
+}
+
+"""
+order by avg() on columns of table "interaction"
+"""
+input interaction_avg_order_by {
+  id: order_by
+  income: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "interaction". All fields are combined with a logical 'AND'.
+"""
+input interaction_bool_exp {
+  _and: [interaction_bool_exp]
+  _not: interaction_bool_exp
+  _or: [interaction_bool_exp]
+  active: Boolean_comparison_exp
+  bot: uuid_comparison_exp
+  botByBot: bot_bool_exp
+  chats: chat_bool_exp
+  controller: String_comparison_exp
+  created_at: date_comparison_exp
+  id: Int_comparison_exp
+  income: Int_comparison_exp
+  successful: Boolean_comparison_exp
+  type: String_comparison_exp
+  updated_at: date_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "interaction"
+"""
+enum interaction_constraint {
+  """unique or primary key constraint"""
+  interaction_pkey
+}
+
+"""
+input type for incrementing integer columne in table "interaction"
+"""
+input interaction_inc_input {
+  id: Int
+  income: Int
+}
+
+"""
+input type for inserting data into table "interaction"
+"""
+input interaction_insert_input {
+  active: Boolean
+  bot: uuid
+  botByBot: bot_obj_rel_insert_input
+  chats: chat_arr_rel_insert_input
+  controller: String
+  created_at: date
+  id: Int
+  income: Int
+  successful: Boolean
+  type: String
+  updated_at: date
+}
+
+"""aggregate max on columns"""
+type interaction_max_fields {
+  controller: String
+  created_at: date
+  id: Int
+  income: Int
+  type: String
+  updated_at: date
+}
+
+"""
+order by max() on columns of table "interaction"
+"""
+input interaction_max_order_by {
+  controller: order_by
+  created_at: order_by
+  id: order_by
+  income: order_by
+  type: order_by
+  updated_at: order_by
+}
+
+"""aggregate min on columns"""
+type interaction_min_fields {
+  controller: String
+  created_at: date
+  id: Int
+  income: Int
+  type: String
+  updated_at: date
+}
+
+"""
+order by min() on columns of table "interaction"
+"""
+input interaction_min_order_by {
+  controller: order_by
+  created_at: order_by
+  id: order_by
+  income: order_by
+  type: order_by
+  updated_at: order_by
+}
+
+"""
+response of any mutation on the table "interaction"
+"""
+type interaction_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [interaction!]!
+}
+
+"""
+input type for inserting object relation for remote table "interaction"
+"""
+input interaction_obj_rel_insert_input {
+  data: interaction_insert_input!
+  on_conflict: interaction_on_conflict
+}
+
+"""
+on conflict condition type for table "interaction"
+"""
+input interaction_on_conflict {
+  constraint: interaction_constraint!
+  update_columns: [interaction_update_column!]!
+  where: interaction_bool_exp
+}
+
+"""
+ordering options when selecting data from "interaction"
+"""
+input interaction_order_by {
+  active: order_by
+  bot: order_by
+  botByBot: bot_order_by
+  chats_aggregate: chat_aggregate_order_by
+  controller: order_by
+  created_at: order_by
+  id: order_by
+  income: order_by
+  successful: order_by
+  type: order_by
+  updated_at: order_by
+}
+
+"""
+select columns of table "interaction"
+"""
+enum interaction_select_column {
+  """column name"""
+  active
+
+  """column name"""
+  bot
+
+  """column name"""
+  controller
+
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  income
+
+  """column name"""
+  successful
+
+  """column name"""
+  type
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "interaction"
+"""
+input interaction_set_input {
+  active: Boolean
+  bot: uuid
+  controller: String
+  created_at: date
+  id: Int
+  income: Int
+  successful: Boolean
+  type: String
+  updated_at: date
+}
+
+"""aggregate stddev on columns"""
+type interaction_stddev_fields {
+  id: Float
+  income: Float
+}
+
+"""
+order by stddev() on columns of table "interaction"
+"""
+input interaction_stddev_order_by {
+  id: order_by
+  income: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type interaction_stddev_pop_fields {
+  id: Float
+  income: Float
+}
+
+"""
+order by stddev_pop() on columns of table "interaction"
+"""
+input interaction_stddev_pop_order_by {
+  id: order_by
+  income: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type interaction_stddev_samp_fields {
+  id: Float
+  income: Float
+}
+
+"""
+order by stddev_samp() on columns of table "interaction"
+"""
+input interaction_stddev_samp_order_by {
+  id: order_by
+  income: order_by
+}
+
+"""aggregate sum on columns"""
+type interaction_sum_fields {
+  id: Int
+  income: Int
+}
+
+"""
+order by sum() on columns of table "interaction"
+"""
+input interaction_sum_order_by {
+  id: order_by
+  income: order_by
+}
+
+"""
+update columns of table "interaction"
+"""
+enum interaction_update_column {
+  """column name"""
+  active
+
+  """column name"""
+  bot
+
+  """column name"""
+  controller
+
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  income
+
+  """column name"""
+  successful
+
+  """column name"""
+  type
+
+  """column name"""
+  updated_at
+}
+
+"""aggregate var_pop on columns"""
+type interaction_var_pop_fields {
+  id: Float
+  income: Float
+}
+
+"""
+order by var_pop() on columns of table "interaction"
+"""
+input interaction_var_pop_order_by {
+  id: order_by
+  income: order_by
+}
+
+"""aggregate var_samp on columns"""
+type interaction_var_samp_fields {
+  id: Float
+  income: Float
+}
+
+"""
+order by var_samp() on columns of table "interaction"
+"""
+input interaction_var_samp_order_by {
+  id: order_by
+  income: order_by
+}
+
+"""aggregate variance on columns"""
+type interaction_variance_fields {
+  id: Float
+  income: Float
+}
+
+"""
+order by variance() on columns of table "interaction"
+"""
+input interaction_variance_order_by {
+  id: order_by
+  income: order_by
+}
+
+"""mutation root"""
+type mutation_root {
+  """
+  delete data from the table: "bot"
+  """
+  delete_bot(
+    """filter the rows which have to be deleted"""
+    where: bot_bool_exp!
+  ): bot_mutation_response
+
+  """
+  delete data from the table: "chat"
+  """
+  delete_chat(
+    """filter the rows which have to be deleted"""
+    where: chat_bool_exp!
+  ): chat_mutation_response
+
+  """
+  delete data from the table: "interaction"
+  """
+  delete_interaction(
+    """filter the rows which have to be deleted"""
+    where: interaction_bool_exp!
+  ): interaction_mutation_response
+
+  """
+  delete data from the table: "users"
+  """
+  delete_users(
+    """filter the rows which have to be deleted"""
+    where: users_bool_exp!
+  ): users_mutation_response
+
+  """
+  delete data from the table: "users_addresses"
+  """
+  delete_users_addresses(
+    """filter the rows which have to be deleted"""
+    where: users_addresses_bool_exp!
+  ): users_addresses_mutation_response
+
+  """
+  delete data from the table: "users_recovery"
+  """
+  delete_users_recovery(
+    """filter the rows which have to be deleted"""
+    where: users_recovery_bool_exp!
+  ): users_recovery_mutation_response
+
+  """
+  delete data from the table: "wallet"
+  """
+  delete_wallet(
+    """filter the rows which have to be deleted"""
+    where: wallet_bool_exp!
+  ): wallet_mutation_response
+
+  """
+  insert data into the table: "bot"
+  """
+  insert_bot(
+    """the rows to be inserted"""
+    objects: [bot_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: bot_on_conflict
+  ): bot_mutation_response
+
+  """
+  insert data into the table: "chat"
+  """
+  insert_chat(
+    """the rows to be inserted"""
+    objects: [chat_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: chat_on_conflict
+  ): chat_mutation_response
+
+  """
+  insert data into the table: "interaction"
+  """
+  insert_interaction(
+    """the rows to be inserted"""
+    objects: [interaction_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: interaction_on_conflict
+  ): interaction_mutation_response
+
+  """
+  insert data into the table: "users"
+  """
+  insert_users(
+    """the rows to be inserted"""
+    objects: [users_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: users_on_conflict
+  ): users_mutation_response
+
+  """
+  insert data into the table: "users_addresses"
+  """
+  insert_users_addresses(
+    """the rows to be inserted"""
+    objects: [users_addresses_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: users_addresses_on_conflict
+  ): users_addresses_mutation_response
+
+  """
+  insert data into the table: "users_recovery"
+  """
+  insert_users_recovery(
+    """the rows to be inserted"""
+    objects: [users_recovery_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: users_recovery_on_conflict
+  ): users_recovery_mutation_response
+
+  """
+  insert data into the table: "wallet"
+  """
+  insert_wallet(
+    """the rows to be inserted"""
+    objects: [wallet_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: wallet_on_conflict
+  ): wallet_mutation_response
+
+  """
+  update data of the table: "bot"
+  """
+  update_bot(
+    """increments the integer columns with given value of the filtered values"""
+    _inc: bot_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: bot_set_input
+
+    """filter the rows which have to be updated"""
+    where: bot_bool_exp!
+  ): bot_mutation_response
+
+  """
+  update data of the table: "chat"
+  """
+  update_chat(
+    """increments the integer columns with given value of the filtered values"""
+    _inc: chat_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: chat_set_input
+
+    """filter the rows which have to be updated"""
+    where: chat_bool_exp!
+  ): chat_mutation_response
+
+  """
+  update data of the table: "interaction"
+  """
+  update_interaction(
+    """increments the integer columns with given value of the filtered values"""
+    _inc: interaction_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: interaction_set_input
+
+    """filter the rows which have to be updated"""
+    where: interaction_bool_exp!
+  ): interaction_mutation_response
+
+  """
+  update data of the table: "users"
+  """
+  update_users(
+    """increments the integer columns with given value of the filtered values"""
+    _inc: users_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: users_set_input
+
+    """filter the rows which have to be updated"""
+    where: users_bool_exp!
+  ): users_mutation_response
+
+  """
+  update data of the table: "users_addresses"
+  """
+  update_users_addresses(
+    """increments the integer columns with given value of the filtered values"""
+    _inc: users_addresses_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: users_addresses_set_input
+
+    """filter the rows which have to be updated"""
+    where: users_addresses_bool_exp!
+  ): users_addresses_mutation_response
+
+  """
+  update data of the table: "users_recovery"
+  """
+  update_users_recovery(
+    """increments the integer columns with given value of the filtered values"""
+    _inc: users_recovery_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: users_recovery_set_input
+
+    """filter the rows which have to be updated"""
+    where: users_recovery_bool_exp!
+  ): users_recovery_mutation_response
+
+  """
+  update data of the table: "wallet"
+  """
+  update_wallet(
+    """increments the integer columns with given value of the filtered values"""
+    _inc: wallet_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: wallet_set_input
+
+    """filter the rows which have to be updated"""
+    where: wallet_bool_exp!
+  ): wallet_mutation_response
+}
+
+"""column ordering options"""
+enum order_by {
+  """in the ascending order, nulls last"""
+  asc
+
+  """in the ascending order, nulls first"""
+  asc_nulls_first
+
+  """in the ascending order, nulls last"""
+  asc_nulls_last
+
+  """in the descending order, nulls first"""
+  desc
+
+  """in the descending order, nulls first"""
+  desc_nulls_first
+
+  """in the descending order, nulls last"""
+  desc_nulls_last
+}
+
+"""query root"""
+type query_root {
+  """
+  fetch data from the table: "bot"
+  """
+  bot(
+    """distinct select on columns"""
+    distinct_on: [bot_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [bot_order_by!]
+
+    """filter the rows returned"""
+    where: bot_bool_exp
+  ): [bot!]!
+
+  """
+  fetch aggregated fields from the table: "bot"
+  """
+  bot_aggregate(
+    """distinct select on columns"""
+    distinct_on: [bot_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [bot_order_by!]
+
+    """filter the rows returned"""
+    where: bot_bool_exp
+  ): bot_aggregate!
+
+  """fetch data from the table: "bot" using primary key columns"""
+  bot_by_pk(UUID: uuid!): bot
+
+  """
+  fetch data from the table: "chat"
+  """
+  chat(
+    """distinct select on columns"""
+    distinct_on: [chat_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [chat_order_by!]
+
+    """filter the rows returned"""
+    where: chat_bool_exp
+  ): [chat!]!
+
+  """
+  fetch aggregated fields from the table: "chat"
+  """
+  chat_aggregate(
+    """distinct select on columns"""
+    distinct_on: [chat_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [chat_order_by!]
+
+    """filter the rows returned"""
+    where: chat_bool_exp
+  ): chat_aggregate!
+
+  """fetch data from the table: "chat" using primary key columns"""
+  chat_by_pk(ID: Int!): chat
+
+  """
+  fetch data from the table: "interaction"
+  """
+  interaction(
+    """distinct select on columns"""
+    distinct_on: [interaction_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [interaction_order_by!]
+
+    """filter the rows returned"""
+    where: interaction_bool_exp
+  ): [interaction!]!
+
+  """
+  fetch aggregated fields from the table: "interaction"
+  """
+  interaction_aggregate(
+    """distinct select on columns"""
+    distinct_on: [interaction_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [interaction_order_by!]
+
+    """filter the rows returned"""
+    where: interaction_bool_exp
+  ): interaction_aggregate!
+
+  """fetch data from the table: "interaction" using primary key columns"""
+  interaction_by_pk(id: Int!): interaction
+
+  """
+  fetch data from the table: "users"
+  """
+  users(
+    """distinct select on columns"""
+    distinct_on: [users_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_order_by!]
+
+    """filter the rows returned"""
+    where: users_bool_exp
+  ): [users!]!
+
+  """
+  fetch data from the table: "users_addresses"
+  """
+  users_addresses(
+    """distinct select on columns"""
+    distinct_on: [users_addresses_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_addresses_order_by!]
+
+    """filter the rows returned"""
+    where: users_addresses_bool_exp
+  ): [users_addresses!]!
+
+  """
+  fetch aggregated fields from the table: "users_addresses"
+  """
+  users_addresses_aggregate(
+    """distinct select on columns"""
+    distinct_on: [users_addresses_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_addresses_order_by!]
+
+    """filter the rows returned"""
+    where: users_addresses_bool_exp
+  ): users_addresses_aggregate!
+
+  """fetch data from the table: "users_addresses" using primary key columns"""
+  users_addresses_by_pk(id: Int!): users_addresses
+
+  """
+  fetch aggregated fields from the table: "users"
+  """
+  users_aggregate(
+    """distinct select on columns"""
+    distinct_on: [users_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_order_by!]
+
+    """filter the rows returned"""
+    where: users_bool_exp
+  ): users_aggregate!
+
+  """fetch data from the table: "users" using primary key columns"""
+  users_by_pk(id: Int!): users
+
+  """
+  fetch data from the table: "users_recovery"
+  """
+  users_recovery(
+    """distinct select on columns"""
+    distinct_on: [users_recovery_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_recovery_order_by!]
+
+    """filter the rows returned"""
+    where: users_recovery_bool_exp
+  ): [users_recovery!]!
+
+  """
+  fetch aggregated fields from the table: "users_recovery"
+  """
+  users_recovery_aggregate(
+    """distinct select on columns"""
+    distinct_on: [users_recovery_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_recovery_order_by!]
+
+    """filter the rows returned"""
+    where: users_recovery_bool_exp
+  ): users_recovery_aggregate!
+
+  """fetch data from the table: "users_recovery" using primary key columns"""
+  users_recovery_by_pk(user_id: String!): users_recovery
+
+  """
+  fetch data from the table: "wallet"
+  """
+  wallet(
+    """distinct select on columns"""
+    distinct_on: [wallet_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [wallet_order_by!]
+
+    """filter the rows returned"""
+    where: wallet_bool_exp
+  ): [wallet!]!
+
+  """
+  fetch aggregated fields from the table: "wallet"
+  """
+  wallet_aggregate(
+    """distinct select on columns"""
+    distinct_on: [wallet_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [wallet_order_by!]
+
+    """filter the rows returned"""
+    where: wallet_bool_exp
+  ): wallet_aggregate!
+
+  """fetch data from the table: "wallet" using primary key columns"""
+  wallet_by_pk(id: Int!): wallet
+}
+
+scalar smallint
+
+"""
+expression to compare columns of type smallint. All fields are combined with logical 'AND'.
+"""
+input smallint_comparison_exp {
+  _eq: smallint
+  _gt: smallint
+  _gte: smallint
+  _in: [smallint!]
+  _is_null: Boolean
+  _lt: smallint
+  _lte: smallint
+  _neq: smallint
+  _nin: [smallint!]
+}
+
+"""
+expression to compare columns of type String. All fields are combined with logical 'AND'.
+"""
+input String_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+  _ilike: String
+  _in: [String!]
+  _is_null: Boolean
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+  _nilike: String
+  _nin: [String!]
+  _nlike: String
+  _nsimilar: String
+  _similar: String
+}
+
+"""subscription root"""
+type subscription_root {
+  """
+  fetch data from the table: "bot"
+  """
+  bot(
+    """distinct select on columns"""
+    distinct_on: [bot_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [bot_order_by!]
+
+    """filter the rows returned"""
+    where: bot_bool_exp
+  ): [bot!]!
+
+  """
+  fetch aggregated fields from the table: "bot"
+  """
+  bot_aggregate(
+    """distinct select on columns"""
+    distinct_on: [bot_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [bot_order_by!]
+
+    """filter the rows returned"""
+    where: bot_bool_exp
+  ): bot_aggregate!
+
+  """fetch data from the table: "bot" using primary key columns"""
+  bot_by_pk(UUID: uuid!): bot
+
+  """
+  fetch data from the table: "chat"
+  """
+  chat(
+    """distinct select on columns"""
+    distinct_on: [chat_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [chat_order_by!]
+
+    """filter the rows returned"""
+    where: chat_bool_exp
+  ): [chat!]!
+
+  """
+  fetch aggregated fields from the table: "chat"
+  """
+  chat_aggregate(
+    """distinct select on columns"""
+    distinct_on: [chat_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [chat_order_by!]
+
+    """filter the rows returned"""
+    where: chat_bool_exp
+  ): chat_aggregate!
+
+  """fetch data from the table: "chat" using primary key columns"""
+  chat_by_pk(ID: Int!): chat
+
+  """
+  fetch data from the table: "interaction"
+  """
+  interaction(
+    """distinct select on columns"""
+    distinct_on: [interaction_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [interaction_order_by!]
+
+    """filter the rows returned"""
+    where: interaction_bool_exp
+  ): [interaction!]!
+
+  """
+  fetch aggregated fields from the table: "interaction"
+  """
+  interaction_aggregate(
+    """distinct select on columns"""
+    distinct_on: [interaction_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [interaction_order_by!]
+
+    """filter the rows returned"""
+    where: interaction_bool_exp
+  ): interaction_aggregate!
+
+  """fetch data from the table: "interaction" using primary key columns"""
+  interaction_by_pk(id: Int!): interaction
+
+  """
+  fetch data from the table: "users"
+  """
+  users(
+    """distinct select on columns"""
+    distinct_on: [users_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_order_by!]
+
+    """filter the rows returned"""
+    where: users_bool_exp
+  ): [users!]!
+
+  """
+  fetch data from the table: "users_addresses"
+  """
+  users_addresses(
+    """distinct select on columns"""
+    distinct_on: [users_addresses_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_addresses_order_by!]
+
+    """filter the rows returned"""
+    where: users_addresses_bool_exp
+  ): [users_addresses!]!
+
+  """
+  fetch aggregated fields from the table: "users_addresses"
+  """
+  users_addresses_aggregate(
+    """distinct select on columns"""
+    distinct_on: [users_addresses_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_addresses_order_by!]
+
+    """filter the rows returned"""
+    where: users_addresses_bool_exp
+  ): users_addresses_aggregate!
+
+  """fetch data from the table: "users_addresses" using primary key columns"""
+  users_addresses_by_pk(id: Int!): users_addresses
+
+  """
+  fetch aggregated fields from the table: "users"
+  """
+  users_aggregate(
+    """distinct select on columns"""
+    distinct_on: [users_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_order_by!]
+
+    """filter the rows returned"""
+    where: users_bool_exp
+  ): users_aggregate!
+
+  """fetch data from the table: "users" using primary key columns"""
+  users_by_pk(id: Int!): users
+
+  """
+  fetch data from the table: "users_recovery"
+  """
+  users_recovery(
+    """distinct select on columns"""
+    distinct_on: [users_recovery_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_recovery_order_by!]
+
+    """filter the rows returned"""
+    where: users_recovery_bool_exp
+  ): [users_recovery!]!
+
+  """
+  fetch aggregated fields from the table: "users_recovery"
+  """
+  users_recovery_aggregate(
+    """distinct select on columns"""
+    distinct_on: [users_recovery_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_recovery_order_by!]
+
+    """filter the rows returned"""
+    where: users_recovery_bool_exp
+  ): users_recovery_aggregate!
+
+  """fetch data from the table: "users_recovery" using primary key columns"""
+  users_recovery_by_pk(user_id: String!): users_recovery
+
+  """
+  fetch data from the table: "wallet"
+  """
+  wallet(
+    """distinct select on columns"""
+    distinct_on: [wallet_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [wallet_order_by!]
+
+    """filter the rows returned"""
+    where: wallet_bool_exp
+  ): [wallet!]!
+
+  """
+  fetch aggregated fields from the table: "wallet"
+  """
+  wallet_aggregate(
+    """distinct select on columns"""
+    distinct_on: [wallet_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [wallet_order_by!]
+
+    """filter the rows returned"""
+    where: wallet_bool_exp
+  ): wallet_aggregate!
+
+  """fetch data from the table: "wallet" using primary key columns"""
+  wallet_by_pk(id: Int!): wallet
+}
+
+scalar time
+
+"""
+expression to compare columns of type time. All fields are combined with logical 'AND'.
+"""
+input time_comparison_exp {
+  _eq: time
+  _gt: time
+  _gte: time
+  _in: [time!]
+  _is_null: Boolean
+  _lt: time
+  _lte: time
+  _neq: time
+  _nin: [time!]
+}
+
+"""
+columns and relationships of "users"
+"""
+type users {
+  """An array relationship"""
+  bots(
+    """distinct select on columns"""
+    distinct_on: [bot_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [bot_order_by!]
+
+    """filter the rows returned"""
+    where: bot_bool_exp
+  ): [bot!]!
+
+  """An aggregated array relationship"""
+  bots_aggregate(
+    """distinct select on columns"""
+    distinct_on: [bot_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [bot_order_by!]
+
+    """filter the rows returned"""
+    where: bot_bool_exp
+  ): bot_aggregate!
+  date_of_birth: String
+  display_name: String!
+  first_name: String
+  id: Int!
+  last_name: String
+  nickname: String
+  phone_number: String
+  user_activation_key: String!
+  user_email: String!
+  user_id: String
+  user_login: String!
+  user_nicename: String!
+  user_pass: String!
+  user_registered: time!
+  user_status: Int!
+  user_url: String!
+
+  """An array relationship"""
+  users_addresses(
+    """distinct select on columns"""
+    distinct_on: [users_addresses_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_addresses_order_by!]
+
+    """filter the rows returned"""
+    where: users_addresses_bool_exp
+  ): [users_addresses!]!
+
+  """An aggregated array relationship"""
+  users_addresses_aggregate(
+    """distinct select on columns"""
+    distinct_on: [users_addresses_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_addresses_order_by!]
+
+    """filter the rows returned"""
+    where: users_addresses_bool_exp
+  ): users_addresses_aggregate!
+
+  """An array relationship"""
+  users_recoveries(
+    """distinct select on columns"""
+    distinct_on: [users_recovery_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_recovery_order_by!]
+
+    """filter the rows returned"""
+    where: users_recovery_bool_exp
+  ): [users_recovery!]!
+
+  """An aggregated array relationship"""
+  users_recoveries_aggregate(
+    """distinct select on columns"""
+    distinct_on: [users_recovery_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_recovery_order_by!]
+
+    """filter the rows returned"""
+    where: users_recovery_bool_exp
+  ): users_recovery_aggregate!
+
+  """An array relationship"""
+  wallets(
+    """distinct select on columns"""
+    distinct_on: [wallet_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [wallet_order_by!]
+
+    """filter the rows returned"""
+    where: wallet_bool_exp
+  ): [wallet!]!
+
+  """An aggregated array relationship"""
+  wallets_aggregate(
+    """distinct select on columns"""
+    distinct_on: [wallet_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [wallet_order_by!]
+
+    """filter the rows returned"""
+    where: wallet_bool_exp
+  ): wallet_aggregate!
+}
+
+"""
+Table to hold Adress information from usermeta Table
+
+
+columns and relationships of "users_addresses"
+
+"""
+type users_addresses {
+  address1: String!
+  address2: String
+  city: String!
+  country: String!
+  id: Int!
+  postal_code: String!
+  ref_name: String
+  state: String
+
+  """An object relationship"""
+  user: users
+  user_id: String
+}
+
+"""
+aggregated selection of "users_addresses"
+"""
+type users_addresses_aggregate {
+  aggregate: users_addresses_aggregate_fields
+  nodes: [users_addresses!]!
+}
+
+"""
+aggregate fields of "users_addresses"
+"""
+type users_addresses_aggregate_fields {
+  avg: users_addresses_avg_fields
+  count(columns: [users_addresses_select_column!], distinct: Boolean): Int
+  max: users_addresses_max_fields
+  min: users_addresses_min_fields
+  stddev: users_addresses_stddev_fields
+  stddev_pop: users_addresses_stddev_pop_fields
+  stddev_samp: users_addresses_stddev_samp_fields
+  sum: users_addresses_sum_fields
+  var_pop: users_addresses_var_pop_fields
+  var_samp: users_addresses_var_samp_fields
+  variance: users_addresses_variance_fields
+}
+
+"""
+order by aggregate values of table "users_addresses"
+"""
+input users_addresses_aggregate_order_by {
+  avg: users_addresses_avg_order_by
+  count: order_by
+  max: users_addresses_max_order_by
+  min: users_addresses_min_order_by
+  stddev: users_addresses_stddev_order_by
+  stddev_pop: users_addresses_stddev_pop_order_by
+  stddev_samp: users_addresses_stddev_samp_order_by
+  sum: users_addresses_sum_order_by
+  var_pop: users_addresses_var_pop_order_by
+  var_samp: users_addresses_var_samp_order_by
+  variance: users_addresses_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "users_addresses"
+"""
+input users_addresses_arr_rel_insert_input {
+  data: [users_addresses_insert_input!]!
+  on_conflict: users_addresses_on_conflict
+}
+
+"""aggregate avg on columns"""
+type users_addresses_avg_fields {
+  id: Float
+}
+
+"""
+order by avg() on columns of table "users_addresses"
+"""
+input users_addresses_avg_order_by {
+  id: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "users_addresses". All fields are combined with a logical 'AND'.
+"""
+input users_addresses_bool_exp {
+  _and: [users_addresses_bool_exp]
+  _not: users_addresses_bool_exp
+  _or: [users_addresses_bool_exp]
+  address1: String_comparison_exp
+  address2: String_comparison_exp
+  city: String_comparison_exp
+  country: String_comparison_exp
+  id: Int_comparison_exp
+  postal_code: String_comparison_exp
+  ref_name: String_comparison_exp
+  state: String_comparison_exp
+  user: users_bool_exp
+  user_id: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "users_addresses"
+"""
+enum users_addresses_constraint {
+  """unique or primary key constraint"""
+  users_addresses_pkey
+}
+
+"""
+input type for incrementing integer columne in table "users_addresses"
+"""
+input users_addresses_inc_input {
+  id: Int
+}
+
+"""
+input type for inserting data into table "users_addresses"
+"""
+input users_addresses_insert_input {
+  address1: String
+  address2: String
+  city: String
+  country: String
+  id: Int
+  postal_code: String
+  ref_name: String
+  state: String
+  user: users_obj_rel_insert_input
+  user_id: String
+}
+
+"""aggregate max on columns"""
+type users_addresses_max_fields {
+  address1: String
+  address2: String
+  city: String
+  country: String
+  id: Int
+  postal_code: String
+  ref_name: String
+  state: String
+  user_id: String
+}
+
+"""
+order by max() on columns of table "users_addresses"
+"""
+input users_addresses_max_order_by {
+  address1: order_by
+  address2: order_by
+  city: order_by
+  country: order_by
+  id: order_by
+  postal_code: order_by
+  ref_name: order_by
+  state: order_by
+  user_id: order_by
+}
+
+"""aggregate min on columns"""
+type users_addresses_min_fields {
+  address1: String
+  address2: String
+  city: String
+  country: String
+  id: Int
+  postal_code: String
+  ref_name: String
+  state: String
+  user_id: String
+}
+
+"""
+order by min() on columns of table "users_addresses"
+"""
+input users_addresses_min_order_by {
+  address1: order_by
+  address2: order_by
+  city: order_by
+  country: order_by
+  id: order_by
+  postal_code: order_by
+  ref_name: order_by
+  state: order_by
+  user_id: order_by
+}
+
+"""
+response of any mutation on the table "users_addresses"
+"""
+type users_addresses_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [users_addresses!]!
+}
+
+"""
+input type for inserting object relation for remote table "users_addresses"
+"""
+input users_addresses_obj_rel_insert_input {
+  data: users_addresses_insert_input!
+  on_conflict: users_addresses_on_conflict
+}
+
+"""
+on conflict condition type for table "users_addresses"
+"""
+input users_addresses_on_conflict {
+  constraint: users_addresses_constraint!
+  update_columns: [users_addresses_update_column!]!
+  where: users_addresses_bool_exp
+}
+
+"""
+ordering options when selecting data from "users_addresses"
+"""
+input users_addresses_order_by {
+  address1: order_by
+  address2: order_by
+  city: order_by
+  country: order_by
+  id: order_by
+  postal_code: order_by
+  ref_name: order_by
+  state: order_by
+  user: users_order_by
+  user_id: order_by
+}
+
+"""
+select columns of table "users_addresses"
+"""
+enum users_addresses_select_column {
+  """column name"""
+  address1
+
+  """column name"""
+  address2
+
+  """column name"""
+  city
+
+  """column name"""
+  country
+
+  """column name"""
+  id
+
+  """column name"""
+  postal_code
+
+  """column name"""
+  ref_name
+
+  """column name"""
+  state
+
+  """column name"""
+  user_id
+}
+
+"""
+input type for updating data in table "users_addresses"
+"""
+input users_addresses_set_input {
+  address1: String
+  address2: String
+  city: String
+  country: String
+  id: Int
+  postal_code: String
+  ref_name: String
+  state: String
+  user_id: String
+}
+
+"""aggregate stddev on columns"""
+type users_addresses_stddev_fields {
+  id: Float
+}
+
+"""
+order by stddev() on columns of table "users_addresses"
+"""
+input users_addresses_stddev_order_by {
+  id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type users_addresses_stddev_pop_fields {
+  id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "users_addresses"
+"""
+input users_addresses_stddev_pop_order_by {
+  id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type users_addresses_stddev_samp_fields {
+  id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "users_addresses"
+"""
+input users_addresses_stddev_samp_order_by {
+  id: order_by
+}
+
+"""aggregate sum on columns"""
+type users_addresses_sum_fields {
+  id: Int
+}
+
+"""
+order by sum() on columns of table "users_addresses"
+"""
+input users_addresses_sum_order_by {
+  id: order_by
+}
+
+"""
+update columns of table "users_addresses"
+"""
+enum users_addresses_update_column {
+  """column name"""
+  address1
+
+  """column name"""
+  address2
+
+  """column name"""
+  city
+
+  """column name"""
+  country
+
+  """column name"""
+  id
+
+  """column name"""
+  postal_code
+
+  """column name"""
+  ref_name
+
+  """column name"""
+  state
+
+  """column name"""
+  user_id
+}
+
+"""aggregate var_pop on columns"""
+type users_addresses_var_pop_fields {
+  id: Float
+}
+
+"""
+order by var_pop() on columns of table "users_addresses"
+"""
+input users_addresses_var_pop_order_by {
+  id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type users_addresses_var_samp_fields {
+  id: Float
+}
+
+"""
+order by var_samp() on columns of table "users_addresses"
+"""
+input users_addresses_var_samp_order_by {
+  id: order_by
+}
+
+"""aggregate variance on columns"""
+type users_addresses_variance_fields {
+  id: Float
+}
+
+"""
+order by variance() on columns of table "users_addresses"
+"""
+input users_addresses_variance_order_by {
+  id: order_by
+}
+
+"""
+aggregated selection of "users"
+"""
+type users_aggregate {
+  aggregate: users_aggregate_fields
+  nodes: [users!]!
+}
+
+"""
+aggregate fields of "users"
+"""
+type users_aggregate_fields {
+  avg: users_avg_fields
+  count(columns: [users_select_column!], distinct: Boolean): Int
+  max: users_max_fields
+  min: users_min_fields
+  stddev: users_stddev_fields
+  stddev_pop: users_stddev_pop_fields
+  stddev_samp: users_stddev_samp_fields
+  sum: users_sum_fields
+  var_pop: users_var_pop_fields
+  var_samp: users_var_samp_fields
+  variance: users_variance_fields
+}
+
+"""
+order by aggregate values of table "users"
+"""
+input users_aggregate_order_by {
+  avg: users_avg_order_by
+  count: order_by
+  max: users_max_order_by
+  min: users_min_order_by
+  stddev: users_stddev_order_by
+  stddev_pop: users_stddev_pop_order_by
+  stddev_samp: users_stddev_samp_order_by
+  sum: users_sum_order_by
+  var_pop: users_var_pop_order_by
+  var_samp: users_var_samp_order_by
+  variance: users_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "users"
+"""
+input users_arr_rel_insert_input {
+  data: [users_insert_input!]!
+  on_conflict: users_on_conflict
+}
+
+"""aggregate avg on columns"""
+type users_avg_fields {
+  id: Float
+  user_status: Float
+}
+
+"""
+order by avg() on columns of table "users"
+"""
+input users_avg_order_by {
+  id: order_by
+  user_status: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "users". All fields are combined with a logical 'AND'.
+"""
+input users_bool_exp {
+  _and: [users_bool_exp]
+  _not: users_bool_exp
+  _or: [users_bool_exp]
+  bots: bot_bool_exp
+  date_of_birth: String_comparison_exp
+  display_name: String_comparison_exp
+  first_name: String_comparison_exp
+  id: Int_comparison_exp
+  last_name: String_comparison_exp
+  nickname: String_comparison_exp
+  phone_number: String_comparison_exp
+  user_activation_key: String_comparison_exp
+  user_email: String_comparison_exp
+  user_id: String_comparison_exp
+  user_login: String_comparison_exp
+  user_nicename: String_comparison_exp
+  user_pass: String_comparison_exp
+  user_registered: time_comparison_exp
+  user_status: Int_comparison_exp
+  user_url: String_comparison_exp
+  users_addresses: users_addresses_bool_exp
+  users_recoveries: users_recovery_bool_exp
+  wallets: wallet_bool_exp
+}
+
+"""
+unique or primary key constraints on table "users"
+"""
+enum users_constraint {
+  """unique or primary key constraint"""
+  user_email_key
+
+  """unique or primary key constraint"""
+  user_nicename_key
+
+  """unique or primary key constraint"""
+  users_pk
+
+  """unique or primary key constraint"""
+  users_user_id_key
+}
+
+"""
+input type for incrementing integer columne in table "users"
+"""
+input users_inc_input {
+  id: Int
+  user_status: Int
+}
+
+"""
+input type for inserting data into table "users"
+"""
+input users_insert_input {
+  bots: bot_arr_rel_insert_input
+  date_of_birth: String
+  display_name: String
+  first_name: String
+  id: Int
+  last_name: String
+  nickname: String
+  phone_number: String
+  user_activation_key: String
+  user_email: String
+  user_id: String
+  user_login: String
+  user_nicename: String
+  user_pass: String
+  user_registered: time
+  user_status: Int
+  user_url: String
+  users_addresses: users_addresses_arr_rel_insert_input
+  users_recoveries: users_recovery_arr_rel_insert_input
+  wallets: wallet_arr_rel_insert_input
+}
+
+"""aggregate max on columns"""
+type users_max_fields {
+  date_of_birth: String
+  display_name: String
+  first_name: String
+  id: Int
+  last_name: String
+  nickname: String
+  phone_number: String
+  user_activation_key: String
+  user_email: String
+  user_id: String
+  user_login: String
+  user_nicename: String
+  user_pass: String
+  user_status: Int
+  user_url: String
+}
+
+"""
+order by max() on columns of table "users"
+"""
+input users_max_order_by {
+  date_of_birth: order_by
+  display_name: order_by
+  first_name: order_by
+  id: order_by
+  last_name: order_by
+  nickname: order_by
+  phone_number: order_by
+  user_activation_key: order_by
+  user_email: order_by
+  user_id: order_by
+  user_login: order_by
+  user_nicename: order_by
+  user_pass: order_by
+  user_status: order_by
+  user_url: order_by
+}
+
+"""aggregate min on columns"""
+type users_min_fields {
+  date_of_birth: String
+  display_name: String
+  first_name: String
+  id: Int
+  last_name: String
+  nickname: String
+  phone_number: String
+  user_activation_key: String
+  user_email: String
+  user_id: String
+  user_login: String
+  user_nicename: String
+  user_pass: String
+  user_status: Int
+  user_url: String
+}
+
+"""
+order by min() on columns of table "users"
+"""
+input users_min_order_by {
+  date_of_birth: order_by
+  display_name: order_by
+  first_name: order_by
+  id: order_by
+  last_name: order_by
+  nickname: order_by
+  phone_number: order_by
+  user_activation_key: order_by
+  user_email: order_by
+  user_id: order_by
+  user_login: order_by
+  user_nicename: order_by
+  user_pass: order_by
+  user_status: order_by
+  user_url: order_by
+}
+
+"""
+response of any mutation on the table "users"
+"""
+type users_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [users!]!
+}
+
+"""
+input type for inserting object relation for remote table "users"
+"""
+input users_obj_rel_insert_input {
+  data: users_insert_input!
+  on_conflict: users_on_conflict
+}
+
+"""
+on conflict condition type for table "users"
+"""
+input users_on_conflict {
+  constraint: users_constraint!
+  update_columns: [users_update_column!]!
+  where: users_bool_exp
+}
+
+"""
+ordering options when selecting data from "users"
+"""
+input users_order_by {
+  bots_aggregate: bot_aggregate_order_by
+  date_of_birth: order_by
+  display_name: order_by
+  first_name: order_by
+  id: order_by
+  last_name: order_by
+  nickname: order_by
+  phone_number: order_by
+  user_activation_key: order_by
+  user_email: order_by
+  user_id: order_by
+  user_login: order_by
+  user_nicename: order_by
+  user_pass: order_by
+  user_registered: order_by
+  user_status: order_by
+  user_url: order_by
+  users_addresses_aggregate: users_addresses_aggregate_order_by
+  users_recoveries_aggregate: users_recovery_aggregate_order_by
+  wallets_aggregate: wallet_aggregate_order_by
+}
+
+"""
+columns and relationships of "users_recovery"
+"""
+type users_recovery {
+  answer1: String
+  answer2: String
+  id: Int!
+  question1: String
+  question2: String
+  reset_key: String
+
+  """An object relationship"""
+  user: users!
+  user_id: String!
+}
+
+"""
+aggregated selection of "users_recovery"
+"""
+type users_recovery_aggregate {
+  aggregate: users_recovery_aggregate_fields
+  nodes: [users_recovery!]!
+}
+
+"""
+aggregate fields of "users_recovery"
+"""
+type users_recovery_aggregate_fields {
+  avg: users_recovery_avg_fields
+  count(columns: [users_recovery_select_column!], distinct: Boolean): Int
+  max: users_recovery_max_fields
+  min: users_recovery_min_fields
+  stddev: users_recovery_stddev_fields
+  stddev_pop: users_recovery_stddev_pop_fields
+  stddev_samp: users_recovery_stddev_samp_fields
+  sum: users_recovery_sum_fields
+  var_pop: users_recovery_var_pop_fields
+  var_samp: users_recovery_var_samp_fields
+  variance: users_recovery_variance_fields
+}
+
+"""
+order by aggregate values of table "users_recovery"
+"""
+input users_recovery_aggregate_order_by {
+  avg: users_recovery_avg_order_by
+  count: order_by
+  max: users_recovery_max_order_by
+  min: users_recovery_min_order_by
+  stddev: users_recovery_stddev_order_by
+  stddev_pop: users_recovery_stddev_pop_order_by
+  stddev_samp: users_recovery_stddev_samp_order_by
+  sum: users_recovery_sum_order_by
+  var_pop: users_recovery_var_pop_order_by
+  var_samp: users_recovery_var_samp_order_by
+  variance: users_recovery_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "users_recovery"
+"""
+input users_recovery_arr_rel_insert_input {
+  data: [users_recovery_insert_input!]!
+  on_conflict: users_recovery_on_conflict
+}
+
+"""aggregate avg on columns"""
+type users_recovery_avg_fields {
+  id: Float
+}
+
+"""
+order by avg() on columns of table "users_recovery"
+"""
+input users_recovery_avg_order_by {
+  id: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "users_recovery". All fields are combined with a logical 'AND'.
+"""
+input users_recovery_bool_exp {
+  _and: [users_recovery_bool_exp]
+  _not: users_recovery_bool_exp
+  _or: [users_recovery_bool_exp]
+  answer1: String_comparison_exp
+  answer2: String_comparison_exp
+  id: Int_comparison_exp
+  question1: String_comparison_exp
+  question2: String_comparison_exp
+  reset_key: String_comparison_exp
+  user: users_bool_exp
+  user_id: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "users_recovery"
+"""
+enum users_recovery_constraint {
+  """unique or primary key constraint"""
+  users_recovery_pkey
+}
+
+"""
+input type for incrementing integer columne in table "users_recovery"
+"""
+input users_recovery_inc_input {
+  id: Int
+}
+
+"""
+input type for inserting data into table "users_recovery"
+"""
+input users_recovery_insert_input {
+  answer1: String
+  answer2: String
+  id: Int
+  question1: String
+  question2: String
+  reset_key: String
+  user: users_obj_rel_insert_input
+  user_id: String
+}
+
+"""aggregate max on columns"""
+type users_recovery_max_fields {
+  answer1: String
+  answer2: String
+  id: Int
+  question1: String
+  question2: String
+  reset_key: String
+  user_id: String
+}
+
+"""
+order by max() on columns of table "users_recovery"
+"""
+input users_recovery_max_order_by {
+  answer1: order_by
+  answer2: order_by
+  id: order_by
+  question1: order_by
+  question2: order_by
+  reset_key: order_by
+  user_id: order_by
+}
+
+"""aggregate min on columns"""
+type users_recovery_min_fields {
+  answer1: String
+  answer2: String
+  id: Int
+  question1: String
+  question2: String
+  reset_key: String
+  user_id: String
+}
+
+"""
+order by min() on columns of table "users_recovery"
+"""
+input users_recovery_min_order_by {
+  answer1: order_by
+  answer2: order_by
+  id: order_by
+  question1: order_by
+  question2: order_by
+  reset_key: order_by
+  user_id: order_by
+}
+
+"""
+response of any mutation on the table "users_recovery"
+"""
+type users_recovery_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [users_recovery!]!
+}
+
+"""
+input type for inserting object relation for remote table "users_recovery"
+"""
+input users_recovery_obj_rel_insert_input {
+  data: users_recovery_insert_input!
+  on_conflict: users_recovery_on_conflict
+}
+
+"""
+on conflict condition type for table "users_recovery"
+"""
+input users_recovery_on_conflict {
+  constraint: users_recovery_constraint!
+  update_columns: [users_recovery_update_column!]!
+  where: users_recovery_bool_exp
+}
+
+"""
+ordering options when selecting data from "users_recovery"
+"""
+input users_recovery_order_by {
+  answer1: order_by
+  answer2: order_by
+  id: order_by
+  question1: order_by
+  question2: order_by
+  reset_key: order_by
+  user: users_order_by
+  user_id: order_by
+}
+
+"""
+select columns of table "users_recovery"
+"""
+enum users_recovery_select_column {
+  """column name"""
+  answer1
+
+  """column name"""
+  answer2
+
+  """column name"""
+  id
+
+  """column name"""
+  question1
+
+  """column name"""
+  question2
+
+  """column name"""
+  reset_key
+
+  """column name"""
+  user_id
+}
+
+"""
+input type for updating data in table "users_recovery"
+"""
+input users_recovery_set_input {
+  answer1: String
+  answer2: String
+  id: Int
+  question1: String
+  question2: String
+  reset_key: String
+  user_id: String
+}
+
+"""aggregate stddev on columns"""
+type users_recovery_stddev_fields {
+  id: Float
+}
+
+"""
+order by stddev() on columns of table "users_recovery"
+"""
+input users_recovery_stddev_order_by {
+  id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type users_recovery_stddev_pop_fields {
+  id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "users_recovery"
+"""
+input users_recovery_stddev_pop_order_by {
+  id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type users_recovery_stddev_samp_fields {
+  id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "users_recovery"
+"""
+input users_recovery_stddev_samp_order_by {
+  id: order_by
+}
+
+"""aggregate sum on columns"""
+type users_recovery_sum_fields {
+  id: Int
+}
+
+"""
+order by sum() on columns of table "users_recovery"
+"""
+input users_recovery_sum_order_by {
+  id: order_by
+}
+
+"""
+update columns of table "users_recovery"
+"""
+enum users_recovery_update_column {
+  """column name"""
+  answer1
+
+  """column name"""
+  answer2
+
+  """column name"""
+  id
+
+  """column name"""
+  question1
+
+  """column name"""
+  question2
+
+  """column name"""
+  reset_key
+
+  """column name"""
+  user_id
+}
+
+"""aggregate var_pop on columns"""
+type users_recovery_var_pop_fields {
+  id: Float
+}
+
+"""
+order by var_pop() on columns of table "users_recovery"
+"""
+input users_recovery_var_pop_order_by {
+  id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type users_recovery_var_samp_fields {
+  id: Float
+}
+
+"""
+order by var_samp() on columns of table "users_recovery"
+"""
+input users_recovery_var_samp_order_by {
+  id: order_by
+}
+
+"""aggregate variance on columns"""
+type users_recovery_variance_fields {
+  id: Float
+}
+
+"""
+order by variance() on columns of table "users_recovery"
+"""
+input users_recovery_variance_order_by {
+  id: order_by
+}
+
+"""
+select columns of table "users"
+"""
+enum users_select_column {
+  """column name"""
+  date_of_birth
+
+  """column name"""
+  display_name
+
+  """column name"""
+  first_name
+
+  """column name"""
+  id
+
+  """column name"""
+  last_name
+
+  """column name"""
+  nickname
+
+  """column name"""
+  phone_number
+
+  """column name"""
+  user_activation_key
+
+  """column name"""
+  user_email
+
+  """column name"""
+  user_id
+
+  """column name"""
+  user_login
+
+  """column name"""
+  user_nicename
+
+  """column name"""
+  user_pass
+
+  """column name"""
+  user_registered
+
+  """column name"""
+  user_status
+
+  """column name"""
+  user_url
+}
+
+"""
+input type for updating data in table "users"
+"""
+input users_set_input {
+  date_of_birth: String
+  display_name: String
+  first_name: String
+  id: Int
+  last_name: String
+  nickname: String
+  phone_number: String
+  user_activation_key: String
+  user_email: String
+  user_id: String
+  user_login: String
+  user_nicename: String
+  user_pass: String
+  user_registered: time
+  user_status: Int
+  user_url: String
+}
+
+"""aggregate stddev on columns"""
+type users_stddev_fields {
+  id: Float
+  user_status: Float
+}
+
+"""
+order by stddev() on columns of table "users"
+"""
+input users_stddev_order_by {
+  id: order_by
+  user_status: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type users_stddev_pop_fields {
+  id: Float
+  user_status: Float
+}
+
+"""
+order by stddev_pop() on columns of table "users"
+"""
+input users_stddev_pop_order_by {
+  id: order_by
+  user_status: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type users_stddev_samp_fields {
+  id: Float
+  user_status: Float
+}
+
+"""
+order by stddev_samp() on columns of table "users"
+"""
+input users_stddev_samp_order_by {
+  id: order_by
+  user_status: order_by
+}
+
+"""aggregate sum on columns"""
+type users_sum_fields {
+  id: Int
+  user_status: Int
+}
+
+"""
+order by sum() on columns of table "users"
+"""
+input users_sum_order_by {
+  id: order_by
+  user_status: order_by
+}
+
+"""
+update columns of table "users"
+"""
+enum users_update_column {
+  """column name"""
+  date_of_birth
+
+  """column name"""
+  display_name
+
+  """column name"""
+  first_name
+
+  """column name"""
+  id
+
+  """column name"""
+  last_name
+
+  """column name"""
+  nickname
+
+  """column name"""
+  phone_number
+
+  """column name"""
+  user_activation_key
+
+  """column name"""
+  user_email
+
+  """column name"""
+  user_id
+
+  """column name"""
+  user_login
+
+  """column name"""
+  user_nicename
+
+  """column name"""
+  user_pass
+
+  """column name"""
+  user_registered
+
+  """column name"""
+  user_status
+
+  """column name"""
+  user_url
+}
+
+"""aggregate var_pop on columns"""
+type users_var_pop_fields {
+  id: Float
+  user_status: Float
+}
+
+"""
+order by var_pop() on columns of table "users"
+"""
+input users_var_pop_order_by {
+  id: order_by
+  user_status: order_by
+}
+
+"""aggregate var_samp on columns"""
+type users_var_samp_fields {
+  id: Float
+  user_status: Float
+}
+
+"""
+order by var_samp() on columns of table "users"
+"""
+input users_var_samp_order_by {
+  id: order_by
+  user_status: order_by
+}
+
+"""aggregate variance on columns"""
+type users_variance_fields {
+  id: Float
+  user_status: Float
+}
+
+"""
+order by variance() on columns of table "users"
+"""
+input users_variance_order_by {
+  id: order_by
+  user_status: order_by
+}
+
+scalar uuid
+
+"""
+expression to compare columns of type uuid. All fields are combined with logical 'AND'.
+"""
+input uuid_comparison_exp {
+  _eq: uuid
+  _gt: uuid
+  _gte: uuid
+  _in: [uuid!]
+  _is_null: Boolean
+  _lt: uuid
+  _lte: uuid
+  _neq: uuid
+  _nin: [uuid!]
+}
+
+"""
+columns and relationships of "wallet"
+"""
+type wallet {
+  balance: Int!
+  id: Int!
+
+  """An object relationship"""
+  user: users!
+  user_id: String!
+  uuid: uuid!
+}
+
+"""
+aggregated selection of "wallet"
+"""
+type wallet_aggregate {
+  aggregate: wallet_aggregate_fields
+  nodes: [wallet!]!
+}
+
+"""
+aggregate fields of "wallet"
+"""
+type wallet_aggregate_fields {
+  avg: wallet_avg_fields
+  count(columns: [wallet_select_column!], distinct: Boolean): Int
+  max: wallet_max_fields
+  min: wallet_min_fields
+  stddev: wallet_stddev_fields
+  stddev_pop: wallet_stddev_pop_fields
+  stddev_samp: wallet_stddev_samp_fields
+  sum: wallet_sum_fields
+  var_pop: wallet_var_pop_fields
+  var_samp: wallet_var_samp_fields
+  variance: wallet_variance_fields
+}
+
+"""
+order by aggregate values of table "wallet"
+"""
+input wallet_aggregate_order_by {
+  avg: wallet_avg_order_by
+  count: order_by
+  max: wallet_max_order_by
+  min: wallet_min_order_by
+  stddev: wallet_stddev_order_by
+  stddev_pop: wallet_stddev_pop_order_by
+  stddev_samp: wallet_stddev_samp_order_by
+  sum: wallet_sum_order_by
+  var_pop: wallet_var_pop_order_by
+  var_samp: wallet_var_samp_order_by
+  variance: wallet_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "wallet"
+"""
+input wallet_arr_rel_insert_input {
+  data: [wallet_insert_input!]!
+  on_conflict: wallet_on_conflict
+}
+
+"""aggregate avg on columns"""
+type wallet_avg_fields {
+  balance: Float
+  id: Float
+}
+
+"""
+order by avg() on columns of table "wallet"
+"""
+input wallet_avg_order_by {
+  balance: order_by
+  id: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "wallet". All fields are combined with a logical 'AND'.
+"""
+input wallet_bool_exp {
+  _and: [wallet_bool_exp]
+  _not: wallet_bool_exp
+  _or: [wallet_bool_exp]
+  balance: Int_comparison_exp
+  id: Int_comparison_exp
+  user: users_bool_exp
+  user_id: String_comparison_exp
+  uuid: uuid_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "wallet"
+"""
+enum wallet_constraint {
+  """unique or primary key constraint"""
+  wallet_pkey
+}
+
+"""
+input type for incrementing integer columne in table "wallet"
+"""
+input wallet_inc_input {
+  balance: Int
+  id: Int
+}
+
+"""
+input type for inserting data into table "wallet"
+"""
+input wallet_insert_input {
+  balance: Int
+  id: Int
+  user: users_obj_rel_insert_input
+  user_id: String
+  uuid: uuid
+}
+
+"""aggregate max on columns"""
+type wallet_max_fields {
+  balance: Int
+  id: Int
+  user_id: String
+}
+
+"""
+order by max() on columns of table "wallet"
+"""
+input wallet_max_order_by {
+  balance: order_by
+  id: order_by
+  user_id: order_by
+}
+
+"""aggregate min on columns"""
+type wallet_min_fields {
+  balance: Int
+  id: Int
+  user_id: String
+}
+
+"""
+order by min() on columns of table "wallet"
+"""
+input wallet_min_order_by {
+  balance: order_by
+  id: order_by
+  user_id: order_by
+}
+
+"""
+response of any mutation on the table "wallet"
+"""
+type wallet_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [wallet!]!
+}
+
+"""
+input type for inserting object relation for remote table "wallet"
+"""
+input wallet_obj_rel_insert_input {
+  data: wallet_insert_input!
+  on_conflict: wallet_on_conflict
+}
+
+"""
+on conflict condition type for table "wallet"
+"""
+input wallet_on_conflict {
+  constraint: wallet_constraint!
+  update_columns: [wallet_update_column!]!
+  where: wallet_bool_exp
+}
+
+"""
+ordering options when selecting data from "wallet"
+"""
+input wallet_order_by {
+  balance: order_by
+  id: order_by
+  user: users_order_by
+  user_id: order_by
+  uuid: order_by
+}
+
+"""
+select columns of table "wallet"
+"""
+enum wallet_select_column {
+  """column name"""
+  balance
+
+  """column name"""
+  id
+
+  """column name"""
+  user_id
+
+  """column name"""
+  uuid
+}
+
+"""
+input type for updating data in table "wallet"
+"""
+input wallet_set_input {
+  balance: Int
+  id: Int
+  user_id: String
+  uuid: uuid
+}
+
+"""aggregate stddev on columns"""
+type wallet_stddev_fields {
+  balance: Float
+  id: Float
+}
+
+"""
+order by stddev() on columns of table "wallet"
+"""
+input wallet_stddev_order_by {
+  balance: order_by
+  id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type wallet_stddev_pop_fields {
+  balance: Float
+  id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "wallet"
+"""
+input wallet_stddev_pop_order_by {
+  balance: order_by
+  id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type wallet_stddev_samp_fields {
+  balance: Float
+  id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "wallet"
+"""
+input wallet_stddev_samp_order_by {
+  balance: order_by
+  id: order_by
+}
+
+"""aggregate sum on columns"""
+type wallet_sum_fields {
+  balance: Int
+  id: Int
+}
+
+"""
+order by sum() on columns of table "wallet"
+"""
+input wallet_sum_order_by {
+  balance: order_by
+  id: order_by
+}
+
+"""
+update columns of table "wallet"
+"""
+enum wallet_update_column {
+  """column name"""
+  balance
+
+  """column name"""
+  id
+
+  """column name"""
+  user_id
+
+  """column name"""
+  uuid
+}
+
+"""aggregate var_pop on columns"""
+type wallet_var_pop_fields {
+  balance: Float
+  id: Float
+}
+
+"""
+order by var_pop() on columns of table "wallet"
+"""
+input wallet_var_pop_order_by {
+  balance: order_by
+  id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type wallet_var_samp_fields {
+  balance: Float
+  id: Float
+}
+
+"""
+order by var_samp() on columns of table "wallet"
+"""
+input wallet_var_samp_order_by {
+  balance: order_by
+  id: order_by
+}
+
+"""aggregate variance on columns"""
+type wallet_variance_fields {
+  balance: Float
+  id: Float
+}
+
+"""
+order by variance() on columns of table "wallet"
+"""
+input wallet_variance_order_by {
+  balance: order_by
+  id: order_by
+}

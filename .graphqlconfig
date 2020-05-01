@@ -1,0 +1,33 @@
+{
+  "projects": {
+    "\"Hasura Aphid Mobile GraphQL Schema\"": {
+      "schemaPath": "schema.graphql",
+      "extensions": {
+        "endpoints": {
+          "Default GraphQL Endpoint": {
+            "url": "http://beautiful-hasura-dev.herokuapp.com/v1/graphql",
+            "headers": {
+              "X-Hasura-Admin-Secret": "4iaovQUeUFCjUr+/GeZZRNC3u0kc4m2anZpfMvaaT88",
+              "user-agent": "JS GraphQL"
+            },
+            "introspect": false
+          }
+        }
+      }
+    }
+  },
+  "name": "Hasura Aphid Mobile GraphQL Schema",
+  "schemaPath": "schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "Default GraphQL Endpoint": {
+        "url": "http://beautiful-hasura-dev.herokuapp.com/v1/graphql",
+        "headers": {
+          "X-Hasura-Admin-Secret": "4iaovQUeUFCjUr+/GeZZRNC3u0kc4m2anZpfMvaaT88",
+          "user-agent": "JS GraphQL"
+        },
+        "introspect": false
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "phid",
+    "slug": "phid_mobile",
+    "privacy": "public",
+    "sdkVersion": "36.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "0.0.12",
+    "orientation": "portrait",
+    "icon": "./assets/images/AppIcon.png",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#090705"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.phid.aphid"
+    },
+    "android": {
+      "package": "com.phid.phid"
+    },
+    "description": "",
+    "entryPoint": "node_modules/expo/AppEntry.js"
+  },
+  "displayName": "phid",
+  "name": "aphid_mobile"
+}
